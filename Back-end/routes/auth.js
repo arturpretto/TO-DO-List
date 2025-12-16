@@ -1,10 +1,10 @@
 import express from 'express'
 import { PrismaClient } from '@prisma/client'
 
-const router = express.Router();
+const authRoutes = express.Router()
 const prisma = new PrismaClient()
 
-router.post('/login', async (req, res) => {
+authRoutes.post('/login', async (req, res) => {
     const { email, password } = req.body
     let user
 
@@ -24,7 +24,7 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.post('/sign', async (req, res) => {
+authRoutes.post('/sign', async (req, res) => {
     try {
         const user = await prisma.user.create({
             data: {
@@ -40,13 +40,27 @@ router.post('/sign', async (req, res) => {
     }
 })
 
-router.get('/sign', async (req, res) => {
+authRoutes.get('/users', async (req, res) => {
     try {
         const users = await prisma.user.findMany()
 
         res.status(201).json(users)
     } catch (error) {
         res.status(500).json({ message: 'Erro ao buscar usuários.' })
+    }
+})
+
+authRoutes.delete('/users/:id', async (req, res) => {
+    try {
+        const user = await prisma.user.delete({
+            where: {
+                id: req.params.id
+            }
+        })
+
+        res.status(201).json(user)
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao excluir usuário.' })
     }
 })
 

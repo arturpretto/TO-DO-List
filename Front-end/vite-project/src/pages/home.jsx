@@ -1,12 +1,17 @@
-import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Sign from '../components/sign'
+import Signup from '../components/sign'
+import Auth from '../components/auth'
+import Login from '../components/login'
 
 function Home() {
 
   return (
     <>
-      <Sign></Sign>
+      <Routes>
+        <Route path='/' element={<Auth />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={<Login />} />
+      </Routes>
     </>
   )
 }

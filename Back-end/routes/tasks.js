@@ -1,11 +1,11 @@
 import express from 'express'
 import { PrismaClient } from '@prisma/client'
 
-const router = express.Router();
+const taskRoutes = express.Router()
 const prisma = new PrismaClient()
 
-router.post('/:id', (req, res) => {})
+taskRoutes.post('/tasks/:id', async (req, res) => {})
 
-router.post('/:id', (req, res) => {})
+taskRoutes.get('/tasks/:id', async (req, res) => {})
 
 export default taskRoutes
