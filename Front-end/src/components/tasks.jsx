@@ -1,13 +1,15 @@
 import styles from '../styles/Tasks.module.css'
-import api from '../../services/api.js'
+import api from '../services/api.js'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Check, Hourglass, Trash2 } from 'lucide-react';
 
-function Tasks() {
+export default function Tasks() {
     const [tasks, setTasks] = useState([])
 
     const titleRef = useRef()
     const dateRef = useRef()
+    const complete = useRef()
 
     const userId = localStorage.getItem('userId')
 
@@ -39,22 +41,76 @@ function Tasks() {
                 userId: userId
             })
 
-            alert('Tarefa cadastrada.')
+            titleRef.current.value = ''
+            dateRef.current.value = ''
         } catch (error) {
             alert('Erro ao cadastrar: ' + error)
         }
     }
 
+    async function completeTask(taskId, taskCompleted) {
+        try {
+            await api.put('/tasks', {
+                id: taskId,
+                completed: taskCompleted
+            })
+        } catch (error) {
+            alert('Erro ao atualizar a tarefa: ' + error)
+        }
+    }
+
+    async function deleteTask(taskId) {
+        try {
+            await api.delete('/tasks', {
+                data: {
+                    id: taskId
+                }
+            })
+        } catch (error) {
+            alert('Erro ao deletar a tarefa: ' + error)
+        }
+    }
+
     return (
-        <div>
-            <form onSubmit={createTask}>
-                <input type='text' placeholder='Insira uma nova tarefa...' ref={titleRef} /><input type='date' ref={dateRef} /><button type='submit'>CRIAR</button>
-            </form>
-            <div>
-                {tasks.map(task => <p key={task.id}>{task.title} {task.date} {task.completed}</p>)}
+        <div className={styles.main}>
+            <div className={styles.container}>
+                <form onSubmit={createTask} className={styles.form}>
+                    <input type='text' placeholder='Insira uma nova tarefa...' ref={titleRef} className={styles.taskInput} /><input type='datetime-local' ref={dateRef} /><button type='submit'>ADICIONAR</button>
+                </form>
+                <div className={styles.taskList}>
+                    {tasks.map(task => {
+                        const date = new Date(task.date)
+
+                        const formatDate = date.toLocaleDateString('pt-BR', {
+                            day: '2-digit',
+                            month: '2-digit'
+                        })
+
+                        const formatTime = date.toLocaleTimeString('pt-BR', {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        })
+
+                        return (
+                            <div key={task.id} className={styles.task}>
+                                <input checked={task.completed} onChange={() => completeTask(task.id, !task.completed)} type='checkbox' className={styles.completed} />
+                                <span className={styles.span}>
+                                    {task.completed ? <Check className={styles.spanIcon} /> : <Hourglass className={styles.spanIcon} />}
+                                </span>
+                                <div>
+                                    {task.title}
+                                </div>
+                                <div>
+                                    {formatDate} | {formatTime}
+                                </div>
+                                <span onClick={() => deleteTask(task.id)} className={styles.span}>
+                                    <Trash2 className={styles.spanIcon} />
+                                </span>
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         </div>
     )
 }
-
-export default Tasks

@@ -5,16 +5,36 @@
     --bg: oklch(0.2 0 264);
     --bg-light: oklch(0.3 0 264);
 
+    --text-hover: oklch(0 0 264);
+    --bg-hover: oklch(0.95 0 264);
+
     --text: oklch(0.96 0 264);
-    --text-muted: oklch(0.76 0 264);
+    --text-sec: oklch(0.76 0 264);
 
     --shadow-s: inset 0 1px 2px #ffffff30, 0 1px 2px #00000030, 0 2px 4px #00000015;
     --shadow-m: inset 0 1px 2px #ffffff50, 0 2px 4px #00000030, 0 4px 8px #00000015;
     --shadow-l: inset 0 1px 2px #ffffff70, 0 4px 6px #00000030, 0 6px 10px #00000015;
 }
 
+body.light {
+    --bg-dark: oklch(0.76 0 264);
+    --bg: oklch(0.86 0 264);
+    --bg-light: oklch(1 0 264);
+
+    --text-hover: oklch(0.95 0 264);
+    --bg-hover: oklch(0.32 0 264);
+
+    --text: oklch(0 0 264);
+    --text-sec: oklch(0.34 0 264);
+
+    --shadow-light-s: 0 1px 2px #0000001a, 0 1px 3px #00000010;
+    --shadow-light-m: 0 4px 6px #00000012, 0 10px 15px #0000000d;
+    --shadow-light-l: 0 15px 25px #0000000d, 0 20px 40px #00000008;
+}
+
 * {
     font-family: "Ubuntu", sans-serif;
+    box-sizing: border-box;
 }
 
 body {
@@ -28,11 +48,11 @@ input {
     background-color: var(--bg-light);
     height: 35px;
     width: 60%;
-    margin-top: 30px;
     padding: 10px;
     color: var(--text);
-    box-shadow: var(--shadow-s);
+    box-shadow: var(--shadow-m);
     outline: none;
+    border: none;
 }
 
 input::placeholder {
@@ -41,23 +61,22 @@ input::placeholder {
 
 button {
     background-color: var(--bg-light);
-    height: 45px;
-    width: 50%;
     padding: 10px;
-    margin-top: 35px;
     border-radius: 10px;
     color: var(--text);
     transition: 0.5s;
     cursor: pointer;
     font-size: 1.1em;
     font-weight: bold;
-    box-shadow: var(--shadow-s)
+    box-shadow: var(--shadow-m);
+    border: none;
+    display: block;
 }
 
 button:hover {
-    color: var(--bg-dark);
+    color: var(--text-hover);
     background-color: white;
-    border: 1px solid var(--bg-dark);
+    border: 1px solid var(--bg-hover);
     transition: 0.5s;
 }
 

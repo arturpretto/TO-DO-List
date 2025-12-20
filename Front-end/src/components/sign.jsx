@@ -1,9 +1,9 @@
 import styles from '../styles/Auth.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { useRef } from 'react'
-import api from '../../services/api.js'
+import api from '../services/api.js'
 
-function Signup() {
+export default function Signup() {
     const nameRef = useRef()
     const passwordRef = useRef()
     const emailRef = useRef()
@@ -34,10 +34,10 @@ function Signup() {
                 <div className={styles.form}>
                     <h1>CADASTRO</h1>
                     <form className={styles.form} onSubmit={Handler}>
-                        <input type='text' placeholder='Name' ref={nameRef}></input>
-                        <input type='text' placeholder='E-mail' ref={emailRef}></input>
-                        <input type='password' placeholder='Password' ref={passwordRef}></input>
-                        <button type='submit'>CADASTRAR-SE</button>
+                        <input type='text' placeholder='Name...' ref={nameRef} className={styles.input} />
+                        <input type='text' placeholder='E-mail...' ref={emailRef} className={styles.input} />
+                        <input type='password' placeholder='Password...' ref={passwordRef} className={styles.input} />
+                        <button type='submit' className={styles.formBtn}>CADASTRAR-SE</button>
 
                         <h3>Já tem uma conta? <Link to='/login'><a>ENTRAR</a></Link></h3>
                     </form>
@@ -46,5 +46,3 @@ function Signup() {
         </div>
     )
 }
-
-export default Signup
