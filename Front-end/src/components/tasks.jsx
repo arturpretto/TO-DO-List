@@ -1,19 +1,16 @@
 import styles from '../styles/Tasks.module.css'
 import api from '../services/api.js'
 import { useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Check, Hourglass, Trash2 } from 'lucide-react';
+import { Link } from 'react-router-dom'
+import { CircleCheckBig, Trash2, Sun, Circle } from 'lucide-react';
 
 export default function Tasks() {
     const [tasks, setTasks] = useState([])
 
     const titleRef = useRef()
     const dateRef = useRef()
-    const complete = useRef()
 
     const userId = localStorage.getItem('userId')
-
-    const navigate = useNavigate()
 
     useEffect(() => {
         async function LoadTasks() {
@@ -71,11 +68,22 @@ export default function Tasks() {
         }
     }
 
+    async function changeMode(event) {
+        event.preventDefault()
+
+        document.body.classList.toggle('light')
+    }
+
     return (
         <div className={styles.main}>
             <div className={styles.container}>
                 <form onSubmit={createTask} className={styles.form}>
-                    <input type='text' placeholder='Insira uma nova tarefa...' ref={titleRef} className={styles.taskInput} /><input type='datetime-local' ref={dateRef} /><button type='submit'>ADICIONAR</button>
+                    <input type='text' placeholder='Insira uma nova tarefa...' ref={titleRef} className={styles.taskInput} />
+                    <input type='datetime-local' ref={dateRef} />
+                    <button type='submit'>ADICIONAR</button>
+
+                    <Link to='/'><a>SAIR</a></Link>
+                    <Sun onClick={changeMode} className={styles.colorMode} />
                 </form>
                 <div className={styles.taskList}>
                     {tasks.map(task => {
@@ -93,15 +101,20 @@ export default function Tasks() {
 
                         return (
                             <div key={task.id} className={styles.task}>
-                                <input checked={task.completed} onChange={() => completeTask(task.id, !task.completed)} type='checkbox' className={styles.completed} />
-                                <span className={styles.span}>
-                                    {task.completed ? <Check className={styles.spanIcon} /> : <Hourglass className={styles.spanIcon} />}
+                                <span className={styles.span} role='button' onClick={() => completeTask(task.id, !task.completed)}>
+                                    {task.completed ? <CircleCheckBig className={styles.spanIcon} />
+                                        : <Circle className={styles.spanIcon} />}
                                 </span>
-                                <div>
+                                <div className={styles.titleWrapper}>
                                     {task.title}
                                 </div>
-                                <div>
-                                    {formatDate} | {formatTime}
+                                <div className={styles.dateWrapper}>
+                                    <span>
+                                        {formatDate}
+                                    </span>
+                                    <span>
+                                        {formatTime}
+                                    </span>
                                 </div>
                                 <span onClick={() => deleteTask(task.id)} className={styles.span}>
                                     <Trash2 className={styles.spanIcon} />

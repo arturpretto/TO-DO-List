@@ -1,7 +1,7 @@
 .container {
     background-color: var(--bg);
-    width: 50%;
-    height: 70dvh;
+    width: 70%;
+    height: 80dvh;
     border-radius: 10px;
     color: var(--text);
     display: flex;
@@ -26,11 +26,12 @@
     gap: 5%;
     height: 10dvh;
     width: 100%;
-    padding: 5%;
+    padding: 2%;
     justify-content: center;
     align-items: center;
-    background-color: var(--bg-light);
+    background-color: var(--bg-mid);
     border-radius: 20px;
+    box-shadow: var(--shadow-l);
 }
 
 .taskInput {
@@ -45,31 +46,56 @@
     overflow-y: auto;
     text-align: left;
     padding: 8%;
+    gap: 5%;
 }
 
 .task {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1.3em;
     font-family: sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.completed {
-    width: 5%;
-    height: 50%;
-    display: flex;
-    box-shadow: none;
-    background-color: var(--bg-light);
+    box-shadow: var(--shadow-m);
+    padding: 2%;
+    border-radius: 20px;
+    background-color: var(--bg-mid);
+    gap: 15px;
 }
 
 .span {
-    height: 100%;
-    width: 5%;
+    height: 30px;
+    width: 30px;
+    flex-shrink: 0;
 }
 
 .spanIcon {
     height: 100%;
     width: 100%;
+    cursor: pointer;
+}
+
+.colorMode {
+    height: 5dvh;
+    width: 10%;
+    border-radius: 99px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.colorMode:hover {
+    background-color: var(--bg-hover);
+    color: var(--text-hover);
+    transition: 0.2s;
+}
+
+.titleWrapper {
+    flex: 1;
+    min-width: 0;
+}
+
+.dateWrapper {
+    flex-shrink: 0;
+    display: flex;
+    gap: 15px;
 }
