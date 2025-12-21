@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import Home from './pages/home.jsx'
 import './styles/main.css'
+import './styles/variables.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
