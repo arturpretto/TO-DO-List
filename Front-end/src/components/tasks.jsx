@@ -13,6 +13,46 @@ export default function Tasks() {
 
     const userId = localStorage.getItem('userId')
 
+    const createTask = async (e) => {
+        e.preventDefault()
+
+        try {
+            await api.post('/tasks', {
+                title: titleRef.current.value,
+                date: dateRef.current.value,
+                userId: userId
+            })
+
+            titleRef.current.value = ''
+            dateRef.current.value = ''
+        } catch (error) {
+            alert('Erro ao cadastrar: ' + error)
+        }
+    }
+
+    const completeTask = async (taskId, completed) => {
+        try {
+            await api.put('/tasks', {
+                id: taskId,
+                completed: completed
+            })
+        } catch (error) {
+            alert('Erro ao atualizar a tarefa: ' + error)
+        }
+    }
+
+    const deleteTask = async (taskId) => {
+        try {
+            await api.delete('/tasks', {
+                data: {
+                    id: taskId
+                }
+            })
+        } catch (error) {
+            alert('Erro ao deletar a tarefa: ' + error)
+        }
+    }
+
     useEffect(() => {
         async function LoadTasks() {
             const response = await api.get('/tasks', {
@@ -38,46 +78,6 @@ export default function Tasks() {
             document.body.classList.remove('light')
         }
     }, [isLight])
-
-    async function createTask(event) {
-        event.preventDefault()
-
-        try {
-            await api.post('/tasks', {
-                title: titleRef.current.value,
-                date: dateRef.current.value,
-                userId: userId
-            })
-
-            titleRef.current.value = ''
-            dateRef.current.value = ''
-        } catch (error) {
-            alert('Erro ao cadastrar: ' + error)
-        }
-    }
-
-    async function completeTask(taskId, taskCompleted) {
-        try {
-            await api.put('/tasks', {
-                id: taskId,
-                completed: taskCompleted
-            })
-        } catch (error) {
-            alert('Erro ao atualizar a tarefa: ' + error)
-        }
-    }
-
-    async function deleteTask(taskId) {
-        try {
-            await api.delete('/tasks', {
-                data: {
-                    id: taskId
-                }
-            })
-        } catch (error) {
-            alert('Erro ao deletar a tarefa: ' + error)
-        }
-    }
 
     return (
         <div className={styles.main}>
