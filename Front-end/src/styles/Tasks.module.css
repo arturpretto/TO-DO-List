@@ -76,14 +76,29 @@
 }
 
 .colorMode {
-    height: 5dvh;
-    width: 10%;
+    height: 4dvh;
+    width: 8%;
     border-radius: 99px;
     transition: 0.2s;
     cursor: pointer;
 }
 
 .colorMode:hover {
+    background-color: var(--bg-hover);
+    color: var(--text-hover);
+    transition: 0.2s;
+}
+
+.logOut {
+    height: 36px;
+    width: 36px;
+    cursor: pointer;
+    transition: 0.2s;
+    border-radius: 5px;
+    padding: 5%;
+}
+
+.logOut:hover {
     background-color: var(--bg-hover);
     color: var(--text-hover);
     transition: 0.2s;

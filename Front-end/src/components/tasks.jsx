@@ -2,7 +2,7 @@ import styles from '../styles/Tasks.module.css'
 import api from '../services/api.js'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { CircleCheckBig, Trash2, Sun, Circle } from 'lucide-react';
+import { CircleCheckBig, Trash2, Sun, Circle, LogOut } from 'lucide-react';
 
 export default function Tasks() {
     const [tasks, setTasks] = useState([])
@@ -87,8 +87,8 @@ export default function Tasks() {
                     <input type='datetime-local' ref={dateRef} />
                     <button type='submit'>ADICIONAR</button>
 
-                    <Link to='/'><a>SAIR</a></Link>
                     <Sun onClick={() => setLight(!isLight)} className={styles.colorMode} />
+                    <Link to='/'><LogOut className={styles.logOut}/></Link>
                 </form>
                 <div className={styles.taskList}>
                     {tasks.map(task => {

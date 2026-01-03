@@ -1,10 +1,13 @@
 import styles from '../styles/Auth.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { useRef, useState, useEffect } from 'react'
+import { Loader2, Check } from 'lucide-react'
 import api from '../services/api.js'
 
 export default function Signup() {
     const [isLight, setLight] = useState(localStorage.getItem('theme') === 'light')
+    const [isLoading, setLoading] = useState(false)
+    const [showMessage, setMessage] = useState(false)
 
     const nameRef = useRef()
     const passwordRef = useRef()
@@ -32,11 +35,22 @@ export default function Signup() {
                 password: passwordRef.current.value,
             })
 
-            alert('Usuário cadastrado.')
+            setTimeout(() => {
+                setLoading(false)
+                setMessage(true)
+            }, 800)
 
-            navigate('/login')
+            setTimeout(() => {
+                navigate('/login')
+            }, 2000)
+
         } catch (error) {
-            alert('Erro ao cadastrar: ' + error)
+            setLoading(true)
+
+            setTimeout(() => {
+                alert('Erro ao cadastrar: ' + error)
+                setLoading(false)
+            }, 1000)
         }
     }
 
@@ -49,9 +63,15 @@ export default function Signup() {
                         <input type='text' placeholder='Name...' ref={nameRef} className={styles.input} />
                         <input type='text' placeholder='E-mail...' ref={emailRef} className={styles.input} />
                         <input type='password' placeholder='Password...' ref={passwordRef} className={styles.input} />
-                        <button type='submit' className={styles.formButton}>CADASTRAR-SE</button>
+                        <button type='submit' className={styles.formButton}>
+                            {showMessage ? (
+                                <Check className={styles.spanCheck} />
+                            ) : isLoading ? (
+                                <Loader2 className={styles.spanLoading} />
+                            ) : 'CADASTRAR-SE'}
+                        </button>
 
-                        <h3>Já tem uma conta? <Link to='/login'><a>ENTRAR</a></Link></h3>
+                        <h3>Já tem uma conta? <Link to='/'><a>ENTRAR</a></Link></h3>
                     </form>
                 </div>
             </div>

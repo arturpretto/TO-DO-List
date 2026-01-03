@@ -49,7 +49,10 @@
 }
 
 .formButton {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     width: 50%;
     height: 5dvh;
     outline: none;
@@ -68,10 +71,47 @@
     border-radius: 99px;
     transition: 0.2s;
     cursor: pointer;
+    color: var(--text);
 }
 
 .colorMode:hover {
     background-color: var(--bg-hover);
     color: var(--text-hover);
     transition: 0.2s;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes checkBounce {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.spanCheck {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    animation: checkBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.spanLoading {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
 }
