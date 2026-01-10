@@ -43,6 +43,8 @@ export default function Signup() {
         const validEmail = validateEmail(emailRef.current.value)
 
         if (validEmail) {
+            setLoading(true)
+
             try {
                 const { data: user } = await api.get('/auth/user', {
                     params: {
@@ -52,8 +54,10 @@ export default function Signup() {
 
                 if (user) {
                     credentialsCheck.textContent = 'E-mail já utilizado'
+                    setLoading(false)
+                    setVisible(true)
                     return
-                } else {
+                } else if (nameRef.current.value && emailRef.current.value && passwordRef.current.value) {
                     await api.post('/auth/sign', {
                         name: nameRef.current.value,
                         email: emailRef.current.value,
@@ -66,11 +70,15 @@ export default function Signup() {
                     }, 800)
 
                     setTimeout(() => {
-                        navigate('/login')
+                        navigate('/')
                     }, 2000)
+                } else {
+                    credentialsCheck.textContent = 'Insira nome, e-mail e senha'
+                    setLoading(false)
+                    setVisible(true)
+                    return
                 }
             } catch (error) {
-                setLoading(true)
 
                 if (nameRef.current.value && emailRef.current.value && passwordRef.current.value) {
                     credentialsCheck.textContent = 'Erro com o servidor, tente novamente mais tarde'
@@ -83,12 +91,18 @@ export default function Signup() {
                     setVisible(true)
                 }, 1000)
             }
-        } else {
-            credentialsCheck.textContent = 'Formato de E-mail não permitido'
 
+        } else if (emailRef.current.value && passwordRef.current.value && nameRef.current.value) {
+            credentialsCheck.textContent = 'Formato de e-mail não permitido'
+
+            setLoading(false)
+            setVisible(true)
+        } else {
+            credentialsCheck.textContent = 'Insira nome, e-mail e senha'
+
+            setLoading(false)
             setVisible(true)
         }
-
     }
 
     return (
@@ -111,7 +125,7 @@ export default function Signup() {
                             ) : 'CADASTRAR-SE'}
                         </button>
 
-                        <h3>Já tem uma conta? <Link to='/'><a>ENTRAR</a></Link></h3>
+                        <h3>Já tem uma conta? <Link to='/'>ENTRAR</Link></h3>
                     </form>
                 </div>
             </div>

@@ -28,12 +28,13 @@ export default function Login() {
                     email: emailRef.current.value,
                     password: passwordRef.current.value
                 })
-
                 localStorage.setItem('userId', data)
             } else {
-                credentialsCheck.textContent('Insira e-mail e senha')
+                credentialsCheck.textContent = 'Insira e-mail e senha'
+                setLoading(false)
+                setVisible(true)
+                return
             }
-
             setTimeout(() => {
                 setLoading(false)
                 setMessage(true)
@@ -43,10 +44,8 @@ export default function Login() {
                 navigate('/tasks')
             }, 2000)
         } catch (error) {
-            setLoading(true)
-
             setTimeout(() => {
-                credentialsCheck.textContent('E-mail ou senha incorretos')
+                credentialsCheck.textContent = 'E-mail ou senha incorretos'
                 setLoading(false)
                 setVisible(true)
             }, 1000)
@@ -82,7 +81,7 @@ export default function Login() {
                             ) : 'ENTRAR'}
                         </button>
 
-                        <h3>Não tem uma conta? <Link to='/signup'><a>CADASTRAR-SE</a></Link></h3>
+                        <h3>Não tem uma conta? <Link to='/signup'>CADASTRAR-SE</Link></h3>
                     </form>
                 </div>
             </div>

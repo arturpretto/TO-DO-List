@@ -17,7 +17,7 @@ authRoutes.post('/login', async (req, res) => {
     }
 
     if (user.password != password) {
-        res.status(401).send('Usuário não encontrado.')
+        res.status(401).json({ message: 'Senha incorreta.'})
     } else {
         const userId = user.id
         res.status(201).json(userId)
@@ -61,7 +61,7 @@ authRoutes.get('/user', async (req, res) => {
 
         res.status(201).json(user)
     } catch (error) {
-        res.status(500).send('Não há usuários' + error)
+        res.status(500).json({ message: 'Não há usuários' + error})
     }
 })
 
