@@ -1,4 +1,4 @@
-Lista de tarefas com cadastro e armazenamento de credenciais e tarefas em banco de dados NoSQL.
+Lista de tarefas com validação de cadastro e armazenamento de credenciais e tarefas em banco de dados NoSQL.
 
 **TECNOLOGIAS:** <br> <br>
 MongoDB <br>
