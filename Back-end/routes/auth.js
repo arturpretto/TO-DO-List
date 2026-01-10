@@ -51,13 +51,27 @@ authRoutes.post('/sign', async (req, res) => {
     }
 })
 
+authRoutes.get('/user', async (req, res) => {
+    try {
+        const user = await prisma.user.findUnique({
+                where: {
+                    email: req.query.email
+                }
+            })
+
+        res.status(201).json(user)
+    } catch (error) {
+        res.status(500).send('Não há usuários' + error)
+    }
+})
+
 authRoutes.get('/users', async (req, res) => {
     try {
         const users = await prisma.user.findMany()
 
         res.status(201).json(users)
     } catch (error) {
-        res.status(500).json({ message: 'Erro ao buscar usuários.' })
+        res.status(500).send('Não há usuários' + error)
     }
 })
 

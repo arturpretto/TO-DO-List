@@ -1,13 +1,14 @@
 import styles from '../styles/Auth.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { useRef, useState, useEffect } from 'react'
-import { Loader2, Check } from 'lucide-react'
+import { Loader2, Check, Users } from 'lucide-react'
 import api from '../services/api.js'
 
 export default function Signup() {
     const [isLight, setLight] = useState(localStorage.getItem('theme') === 'light')
     const [isLoading, setLoading] = useState(false)
     const [showMessage, setMessage] = useState(false)
+    const [isVisible, setVisible] = useState(false)
 
     const nameRef = useRef()
     const passwordRef = useRef()
@@ -28,30 +29,66 @@ export default function Signup() {
     async function Handler(event) {
         event.preventDefault()
 
-        try {
-            await api.post('/auth/sign', {
-                name: nameRef.current.value,
-                email: emailRef.current.value,
-                password: passwordRef.current.value,
-            })
+        const credentialsCheck = document.getElementById('credentialsCheck')
 
-            setTimeout(() => {
-                setLoading(false)
-                setMessage(true)
-            }, 800)
+        const validateEmail = (email) => {
+            const regex = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]*[a-zA-Z0-9]@[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/
 
-            setTimeout(() => {
-                navigate('/login')
-            }, 2000)
+            if (!regex.test(email)) { return false }
+            if (email.includes('..')) { return false }
 
-        } catch (error) {
-            setLoading(true)
-
-            setTimeout(() => {
-                alert('Erro ao cadastrar: ' + error)
-                setLoading(false)
-            }, 1000)
+            return true
         }
+
+        const validEmail = validateEmail(emailRef.current.value)
+
+        if (validEmail) {
+            try {
+                const { data: user } = await api.get('/auth/user', {
+                    params: {
+                        email: emailRef.current.value
+                    }
+                })
+
+                if (user) {
+                    credentialsCheck.textContent = 'E-mail já utilizado'
+                    return
+                } else {
+                    await api.post('/auth/sign', {
+                        name: nameRef.current.value,
+                        email: emailRef.current.value,
+                        password: passwordRef.current.value,
+                    })
+
+                    setTimeout(() => {
+                        setLoading(false)
+                        setMessage(true)
+                    }, 800)
+
+                    setTimeout(() => {
+                        navigate('/login')
+                    }, 2000)
+                }
+            } catch (error) {
+                setLoading(true)
+
+                if (nameRef.current.value && emailRef.current.value && passwordRef.current.value) {
+                    credentialsCheck.textContent = 'Erro com o servidor, tente novamente mais tarde'
+                } else {
+                    credentialsCheck.textContent = 'Insira nome, e-mail e senha'
+                }
+
+                setTimeout(() => {
+                    setLoading(false)
+                    setVisible(true)
+                }, 1000)
+            }
+        } else {
+            credentialsCheck.textContent = 'Formato de E-mail não permitido'
+
+            setVisible(true)
+        }
+
     }
 
     return (
@@ -63,6 +100,9 @@ export default function Signup() {
                         <input type='text' placeholder='Name...' ref={nameRef} className={styles.input} />
                         <input type='text' placeholder='E-mail...' ref={emailRef} className={styles.input} />
                         <input type='password' placeholder='Password...' ref={passwordRef} className={styles.input} />
+                        <div className={`${styles.credentialsError} ${isVisible ? styles.visible : styles.hidden}`}>
+                            <p id='credentialsCheck'></p>
+                        </div>
                         <button type='submit' className={styles.formButton}>
                             {showMessage ? (
                                 <Check className={styles.spanCheck} />

@@ -8,6 +8,7 @@ export default function Login() {
     const [isLight, setLight] = useState(localStorage.getItem('theme') === 'light')
     const [isLoading, setLoading] = useState(false)
     const [showMessage, setMessage] = useState(false)
+    const [isVisible, setVisible] = useState(false)
 
     const passwordRef = useRef()
     const emailRef = useRef()
@@ -17,15 +18,21 @@ export default function Login() {
     const handler = async (event) => {
         event.preventDefault()
 
+        const credentialsCheck = document.getElementById('credentialsCheck')
+
         try {
             setLoading(true)
 
-            const { data } = await api.post('/auth/login', {
-                email: emailRef.current.value,
-                password: passwordRef.current.value
-            })
+            if (emailRef.current.value && passwordRef.current.value) {
+                const { data } = await api.post('/auth/login', {
+                    email: emailRef.current.value,
+                    password: passwordRef.current.value
+                })
 
-            localStorage.setItem('userId', data)
+                localStorage.setItem('userId', data)
+            } else {
+                credentialsCheck.textContent('Insira e-mail e senha')
+            }
 
             setTimeout(() => {
                 setLoading(false)
@@ -35,13 +42,13 @@ export default function Login() {
             setTimeout(() => {
                 navigate('/tasks')
             }, 2000)
-
         } catch (error) {
             setLoading(true)
 
             setTimeout(() => {
-                alert('Erro ao logar: ' + error)
+                credentialsCheck.textContent('E-mail ou senha incorretos')
                 setLoading(false)
+                setVisible(true)
             }, 1000)
         }
     }
@@ -64,6 +71,9 @@ export default function Login() {
                     <form className={styles.authForm} onSubmit={handler}>
                         <input type='text' placeholder='E-mail...' ref={emailRef} className={styles.input} />
                         <input type='password' placeholder='Password...' ref={passwordRef} className={styles.input} />
+                        <div className={`${styles.credentialsError} ${isVisible ? styles.visible : styles.hidden}`}>
+                            <p id='credentialsCheck'></p>
+                        </div>
                         <button type='submit' className={styles.formButton}>
                             {showMessage ? (
                                 <Check className={styles.spanCheck} />

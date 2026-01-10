@@ -121,7 +121,7 @@ export default function Tasks() {
                                         {formatTime}
                                     </span>
                                 </div>
-                                <span onClick={() => deleteTask(task.id)} className={styles.spanContainer}>
+                                <span onClick={() => deleteTask(task.id)} className={styles.binContainer}>
                                     <Trash2 className={styles.iconButton} />
                                 </span>
                             </div>

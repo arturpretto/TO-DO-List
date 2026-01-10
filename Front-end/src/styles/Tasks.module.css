@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&family=Inconsolata:wght@200..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
 .container {
     background-color: var(--bg);
     width: 70%;
@@ -69,6 +71,13 @@
     flex-shrink: 0;
 }
 
+.spanContainer:hover {
+    background-color: var(--bg-hover);
+    color: var(--text-hover);
+    transition: 0.2s;
+    border-radius: 99px;
+}
+
 .iconButton {
     height: 100%;
     width: 100%;
@@ -113,4 +122,17 @@
     flex-shrink: 0;
     display: flex;
     gap: 15px;
+}
+
+.binContainer {
+    height: 30px;
+    width: 30px;
+    flex-shrink: 0;
+    border-radius: 5px;
+}
+
+.binContainer:hover {
+    background-color: var(--bg-hover);
+    color: var(--text-hover);
+    transition: 0.2s;
 }
