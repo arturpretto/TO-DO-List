@@ -18,7 +18,7 @@
 body.light {
     --bg-dark: oklch(0.76 0 264);
     --bg: oklch(0.86 0 264);
-    --bg-mid: oklch(0.93 0 264);
+    --bg-mid: oklch(98.006% 0.00973 253.023);
     --bg-light: oklch(1 0 264);
 
     --text-hover: oklch(0.95 0 264);

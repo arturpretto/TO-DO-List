@@ -3,8 +3,8 @@ import api from '../services/Api.js'
 import { useEffect, useRef, useState } from 'react'
 import { ListTodo } from 'lucide-react';
 import Task from '../components/task.jsx';
-import TaskInput from '../components/Taskinput.jsx';
-import TaskStatus from '../components/Taskstatus.jsx';
+import TaskInput from '../components/taskinput.jsx';
+import TaskStatus from '../components/taskstatus.jsx';
 
 export default function Todo() {
     const [tasks, setTasks] = useState([])
@@ -62,7 +62,7 @@ export default function Todo() {
                     <ListTodo className={styles.clipboard} />
                     <h1>Minhas Tarefas</h1>
                 </div>
-                <TaskStatus />
+                <TaskStatus tasks={tasks}/>
                 <TaskInput createTask={createTask} titleRef={titleRef} isLight={isLight} setLight={setLight} />
                 <div className={styles.taskList}>
                     {tasks.map(task => {

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&family=Inconsolata:wght@200..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&family=Inconsolata:wght@200..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 
 .container {
     background-color: transparent;
@@ -59,7 +60,7 @@
     box-shadow: var(--shadow-m);
     padding: 2%;
     border-radius: 20px;
-    background-color: var(--bg-mid);
+    background-color: var(--bg-light);
     gap: 15px;
     transition: 0.3s;
     height: 7dvh;
@@ -88,7 +89,7 @@
 }
 
 .checkButton:hover {
-    color: rgba(71, 243, 37, 0.904);
+    color: rgba(111, 255, 83, 0.904);
     transition: 0.3s;
 }
 
@@ -97,8 +98,7 @@
     width: 80%;
     cursor: pointer;
     transition: 0.3s;
-    fill: rgba(71, 243, 37, 0.671);
-    stroke: white;
+    stroke: rgba(71, 243, 37, 0.671);
 }
 
 .colorMode {
@@ -184,4 +184,59 @@
     text-decoration-thickness: 2px;
     color: rgb(160, 158, 158);
     transition: 0.2s;
+}
+
+.taskStatusContainer {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 5%;
+}
+
+.taskStatus {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 18px;
+}
+
+.taskCount {
+    background-color: #155efc1c;
+    color: #155DFC;
+}
+
+.concludedTasks {
+    background-color: #55a6611f;
+    color: #55A661;
+}
+
+.pendingTasks {
+    background-color: rgba(255, 182, 46, 0.13);
+    color: #F54A00;
+}
+
+.taskStatusDiv {
+    padding-left: 6px;
+    padding-right: 6px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-s);
+}
+
+.addButton {
+    background-color: rgb(56, 118, 250);
+    color: white;
+}
+
+.addButton:hover {
+    background-color: rgb(42, 84, 173);
+}
+
+.statusText {
+    font-family: "Roboto", sans-serif;
+    cursor: default;
 }
