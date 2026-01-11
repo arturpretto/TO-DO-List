@@ -1,11 +1,10 @@
 import styles from '../styles/Auth.module.css'
 import { Link, useNavigate } from 'react-router-dom'
-import { useRef, useState, useEffect } from 'react'
-import { Loader2, Check, Users } from 'lucide-react'
-import api from '../services/api.js'
+import { useRef, useState } from 'react'
+import { Loader2, Check } from 'lucide-react'
+import api from '../services/Api.js'
 
 export default function Signup() {
-    const [isLight, setLight] = useState(localStorage.getItem('theme') === 'light')
     const [isLoading, setLoading] = useState(false)
     const [showMessage, setMessage] = useState(false)
     const [isVisible, setVisible] = useState(false)
@@ -15,16 +14,6 @@ export default function Signup() {
     const emailRef = useRef()
 
     const navigate = useNavigate()
-
-    useEffect(() => {
-        if (isLight) {
-            localStorage.setItem('theme', 'light')
-            document.body.classList.add('light')
-        } else {
-            localStorage.setItem('theme', 'dark')
-            document.body.classList.remove('light')
-        }
-    }, [isLight])
 
     async function Handler(event) {
         event.preventDefault()

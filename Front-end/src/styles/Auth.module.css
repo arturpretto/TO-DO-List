@@ -1,5 +1,5 @@
 .container {
-    background-color: var(--bg);
+    background-color: var(--bg-mid);
     width: 30%;
     height: 50dvh;
     border-radius: 10px;

@@ -1,19 +1,19 @@
 import { Route, Routes } from 'react-router-dom'
-import Signup from './sign'
-import Login from './login'
-import Tasks from './tasks'
+import Signup from './Sign-up.jsx'
+import Todo from './Todo.jsx'
+import Login from './log-in.jsx'
 
-function Home() {
+function App() {
 
   return (
     <>
       <Routes>
         <Route path='/' element={<Login/>} />
         <Route path='/signup' element={<Signup />} />
-        <Route path='/tasks' element={<Tasks />} />
+        <Route path='/tasks' element={<Todo />} />
       </Routes>
     </>
   )
 }
 
-export default Home
+export default App

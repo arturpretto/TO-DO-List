@@ -9,14 +9,13 @@ taskRoutes.post('/', async (req, res) => {
         const task = await prisma.task.create({
             data: {
                 title: req.body.title,
-                date: new Date(req.body.date),
                 userId: req.body.userId
             }
         })
 
-        res.status(201).send(task)
+        res.status(201).json(task)
     } catch (error) {
-        res.status(401).send('Erro no servidor: ' + error)
+        res.status(401).json(error)
     }
 })
 
@@ -35,7 +34,7 @@ taskRoutes.get('/', async (req, res) => {
 
             res.status(201).json(tasks)
         } catch (error) {
-            res.status(500).send('Erro no servidor: ' + error)
+            res.status(500).json(error)
         }
     }
 })
@@ -53,7 +52,7 @@ taskRoutes.put('/', async (req, res) => {
 
         res.status(201).json(task)
     } catch (error) {
-        res.status(500).send('Erro no servidor: ' + error)
+        res.status(500).json(error)
     }
 })
 
@@ -65,9 +64,9 @@ taskRoutes.delete('/', async (req, res) => {
             }
         })
 
-        res.status(201).send('Tarefa deletada com sucesso.')
+        res.status(201).json(task)
     } catch (error) {
-        res.status(500).send('Erro no servidor: ' + error)
+        res.status(500).json(error)
     }
 })
 

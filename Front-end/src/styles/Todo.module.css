@@ -62,6 +62,8 @@
     background-color: var(--bg-mid);
     gap: 15px;
     transition: 0.3s;
+    height: 7dvh;
+    width: 100%;
 }
 
 .task:hover {
@@ -78,16 +80,25 @@
     align-items: center;
 }
 
-.iconButton {
+.checkButton {
     height: 80%;
     width: 80%;
     cursor: pointer;
     transition: 0.3s;
 }
 
-.iconButton:hover {
-    color: rgb(72, 243, 37);
+.checkButton:hover {
+    color: rgba(71, 243, 37, 0.904);
     transition: 0.3s;
+}
+
+.checkedButton {
+    height: 80%;
+    width: 80%;
+    cursor: pointer;
+    transition: 0.3s;
+    fill: rgba(71, 243, 37, 0.671);
+    stroke: white;
 }
 
 .colorMode {
@@ -166,4 +177,11 @@
     align-items: center;
     width: 100%;
     gap: 24px;
+}
+
+.taskTitle {
+    text-decoration-line: line-through;
+    text-decoration-thickness: 2px;
+    color: rgb(160, 158, 158);
+    transition: 0.2s;
 }

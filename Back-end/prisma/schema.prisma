@@ -16,7 +16,6 @@ datasource db {
 model Task {
   id     String @id @default(auto()) @map("_id") @db.ObjectId
   title  String
-  date DateTime
   userId String @db.ObjectId
   completed Boolean  @default(false)
 
