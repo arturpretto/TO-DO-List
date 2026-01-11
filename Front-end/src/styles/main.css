@@ -6,7 +6,7 @@
 }
 
 body {
-    background: var(--bg-dark);
+    background: var(--bg-mid);
     background-size: cover;
     background-position: center;
 }
@@ -30,7 +30,7 @@ input::placeholder {
 button {
     background-color: var(--bg-light);
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 8px;
     color: var(--text);
     transition: 0.5s;
     cursor: pointer;
@@ -38,7 +38,8 @@ button {
     font-weight: bold;
     box-shadow: var(--shadow-m);
     border: none;
-    display: block;
+    display: flex;
+    gap: 6px;
 }
 
 button:hover {

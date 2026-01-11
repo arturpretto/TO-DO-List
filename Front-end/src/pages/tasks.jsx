@@ -2,7 +2,7 @@ import styles from '../styles/Tasks.module.css'
 import api from '../services/api.js'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { CircleCheckBig, Trash2, Sun, Circle, LogOut } from 'lucide-react';
+import { CircleCheckBig, Trash2, Sun, Circle, LogOut, Plus, ListTodo } from 'lucide-react';
 
 export default function Tasks() {
     const [tasks, setTasks] = useState([])
@@ -82,28 +82,19 @@ export default function Tasks() {
     return (
         <div className={styles.main}>
             <div className={styles.container}>
+                <div className={styles.title}>
+                    <ListTodo className={styles.clipboard} />
+                    <h1>Minhas Tarefas</h1>
+                </div>
                 <form onSubmit={createTask} className={styles.taskForm}>
                     <input type='text' placeholder='Insira uma nova tarefa...' ref={titleRef} className={styles.taskInput} />
-                    <input type='datetime-local' ref={dateRef} />
-                    <button type='submit'>ADICIONAR</button>
+                    <button type='submit'><Plus />ADICIONAR</button>
 
                     <Sun onClick={() => setLight(!isLight)} className={styles.colorMode} />
-                    <Link to='/'><LogOut className={styles.logOut}/></Link>
+                    <Link to='/'><LogOut className={styles.logOut} /></Link>
                 </form>
                 <div className={styles.taskList}>
                     {tasks.map(task => {
-                        const date = new Date(task.date)
-
-                        const formatDate = date.toLocaleDateString('pt-BR', {
-                            day: '2-digit',
-                            month: '2-digit'
-                        })
-
-                        const formatTime = date.toLocaleTimeString('pt-BR', {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        })
-
                         return (
                             <div key={task.id} className={styles.task}>
                                 <span className={styles.spanContainer} role='button' onClick={() => completeTask(task.id, !task.completed)}>
@@ -113,16 +104,8 @@ export default function Tasks() {
                                 <div className={styles.titleContainer}>
                                     {task.title}
                                 </div>
-                                <div className={styles.dateContainer}>
-                                    <span>
-                                        {formatDate}
-                                    </span>
-                                    <span>
-                                        {formatTime}
-                                    </span>
-                                </div>
                                 <span onClick={() => deleteTask(task.id)} className={styles.binContainer}>
-                                    <Trash2 className={styles.iconButton} />
+                                    <Trash2 className={styles.binButton} />
                                 </span>
                             </div>
                         )

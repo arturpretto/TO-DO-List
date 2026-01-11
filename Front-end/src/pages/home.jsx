@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
-import Signup from '../components/sign'
-import Login from '../components/login'
-import Tasks from '../components/tasks'
+import Signup from './sign'
+import Login from './login'
+import Tasks from './tasks'
 
 function Home() {
 
